@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>學習型人格測驗</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            font-family: Arial, sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #f7f3ea,
+                #e8e0d2
+            );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px;
+        }
+
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+        }
+
+
+        .card {
+            background: white;
+
+            border-radius: 24px;
+
+            padding: 45px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.08);
+        }
+
+
+        /* =====================
+           首頁
+        ===================== */
+
+        .intro {
+            text-align: center;
+        }
+
+
+        .icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+
+        h1 {
+            font-size: 38px;
+            color: #333;
+
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+
+        .intro-text {
+            color: #666;
+
+            line-height: 1.7;
+
+            margin-bottom: 30px;
+        }
+
+
+        .start-button {
+            background: #333;
+            color: white;
+
+            border: none;
+
+            padding: 16px 45px;
+
+            border-radius: 12px;
+
+            font-size: 17px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .start-button:hover {
+            transform: translateY(-2px);
+            opacity: 0.85;
+        }
+
+
+        .notice {
+            font-size: 13px;
+            color: #999;
+
+            margin-top: 25px;
+        }
+
+
+        /* =====================
+           題目
+        ===================== */
+
+        .quiz-header {
+            margin-bottom: 30px;
+        }
+
+
+        .question-number {
+            display: flex;
+
+            justify-content: space-between;
+
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .progress-background {
+            width: 100%;
+
+            height: 8px;
+
+            background: #eee;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+
+        .progress-bar {
+            height: 100%;
+
+            background: #333;
+
+            border-radius: 10px;
+
+            transition:
+                width 0.4s ease;
+        }
+
+
+        .question-title {
+            font-size: 28px;
+
+            line-height: 1.4;
+
+            margin-bottom: 30px;
+
+            color: #333;
+        }
+
+
+        .options {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 14px;
+        }
+
+
+        .option-button {
+            width: 100%;
+
+            padding: 18px 20px;
+
+            background: white;
+
+            border: 2px solid #e5e5e5;
+
+            border-radius: 14px;
+
+            text-align: left;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            transition: all 0.2s;
+        }
+
+
+        .option-button:hover {
+            border-color: #777;
+
+            transform: translateX(4px);
+        }
+
+
+        .option-button.selected {
+            background: #333;
+
+            color: white;
+
+            border-color: #333;
+        }
+
+
+        /* =====================
+           結果
+        ===================== */
+
+        .result {
+            text-align: center;
+        }
+
+
+        .result-icon {
+            font-size: 70px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .result-title {
+            font-size: 34px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .result-description {
+            color: #666;
+
+            line-height: 1.7;
+
+            margin-bottom: 30px;
+        }
+
+
+        .score-section {
+            margin: 30px 0;
+
+            text-align: left;
+        }
+
+
+        .score-title {
+            font-size: 18px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .score-item {
+            margin-bottom: 18px;
+        }
+
+
+        .score-label {
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 7px;
+
+            font-size: 14px;
+        }
+
+
+        .score-background {
+            height: 10px;
+
+            background: #eee;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+
+        .score-bar {
+            height: 100%;
+
+            background: #555;
+
+            border-radius: 10px;
+        }
+
+
+        .advice {
+            background: #f7f3ea;
+
+            border-radius: 15px;
+
+            padding: 20px;
+
+            text-align: left;
+
+            margin-top: 25px;
+
+            line-height: 1.7;
+        }
+
+
+        .restart-button {
+            margin-top: 30px;
+
+            background: #333;
+
+            color: white;
+
+            border: none;
+
+            padding: 15px 35px;
+
+            border-radius: 12px;
+
+            font-size: 16px;
+
+            cursor: pointer;
+        }
+
+
+        .restart-button:hover {
+            opacity: 0.8;
+        }
+
+
+        .small-note {
+            margin-top: 25px;
+
+            font-size: 12px;
+
+            color: #999;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================
+           手機版
+        ===================== */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 15px;
+            }
+
+
+            .card {
+                padding: 28px 20px;
+            }
+
+
+            h1 {
+                font-size: 30px;
+            }
+
+
+            .question-title {
+                font-size: 23px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+    <div class="card" id="app">
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+// ==========================================
+// 1. 題目
+// ==========================================
+
+const questions = [
+
+    {
+        question:
+            "當你開始學習一個完全陌生的東西時，你通常會？",
+
+        options: [
+
+            {
+                text: "先了解它背後的原理",
+                type: "analysis"
+            },
+
+            {
+                text: "先動手做，邊做邊學",
+                type: "action"
+            },
+
+            {
+                text: "找一個人跟我一起討論",
+                type: "social"
+            },
+
+            {
+                text: "先安排一個完整的學習計劃",
+                type: "planning"
+            }
+
+        ]
+    },
+
+
+    {
+        question:
+            "遇到一個自己完全不懂的問題時，你第一反應是？",
+
+        options: [
+
+            {
+                text: "自己搜尋資料，搞清楚原因",
+                type: "analysis"
+            },
+
+            {
+                text: "先試幾種方法看看",
+                type: "action"
+            },
+
+            {
+                text: "問問身邊的人怎麼做",
+                type: "social"
+            },
+
+            {
+                text: "把問題拆成幾個小步驟",
+                type: "planning"
+            }
+
+        ]
+    },
+
+
+    {
+        question:
+            "下面哪種學習方式最適合你？",
+
+        options: [
+
+            {
+                text: "閱讀詳細解釋和理論",
+                type: "analysis"
+            },
+
+            {
+                text: "大量練習和實際操作",
+                type: "action"
+            },
+
+            {
+                text: "和其他人討論",
+                type: "social"
+            },
+
+            {
+                text: "按照清楚的課程進度",
+                type: "planning"
+            }
+
+        ]
+    },
+
+
+    {
+        question:
+            "如果老師突然給你一個 project，你會先？",
+
+        options: [
+
+            {
+                text: "研究這個 project 背後的概念",
+                type: "analysis"
+            },
+
+            {
+                text: "直接開始做",
+                type: "action"
+            },
+
+            {
+                text: "找同學討論想法",
+                type: "social"
+            },
+
+            {
+                text: "列出任務和 deadline",
+                type: "planning"
+            }
+
+        ]
+    },
+
+
+    {
+        question:
+            "你覺得自己什麼時候最容易真正學會一個東西？",
+
+        options: [
+
+            {
+                text: "當我理解「為什麼」的時候",
+                type: "analysis"
+            },
+
+            {
+                text: "當我親手做成功的時候",
+                type: "action"
+            },
+
+            {
+                text: "當有人和我討論之後",
+                type: "social"
+            },
+
+            {
+                text: "當我一步一步完成整個流程",
+                type: "planning"
+            }
+
+        ]
+    },
+
+
+    {
+        question:
+            "考試前，你通常會？",
+
+        options: [
+
+            {
+                text: "整理概念，理解知識之間的關係",
+                type: "analysis"
+            },
+
+            {
+                text: "直接刷很多題",
+                type: "action"
+            },
+
+            {
+                text: "找朋友一起討論",
+                type: "social"
+            },
+
+            {
+                text: "制定一個複習時間表",
+                type: "planning"
+            }
+
+        ]
+    },
+
+
+    {
+        question:
+            "如果你的程式突然出錯，你最可能會？",
+
+        options: [
+
+            {
+                text: "研究 error 是怎麼產生的",
+                type: "analysis"
+            },
+
+            {
+                text: "不停修改直到它可以運行",
+                type: "action"
+            },
+
+            {
+                text: "問別人有沒有遇過同樣的問題",
+                type: "social"
+            },
+
+            {
+                text: "按照程式的步驟逐個檢查",
+                type: "planning"
+            }
+
+        ]
+    },
+
+
+    {
+        question:
+            "你學一項新技能時，最在意的是？",
+
+        options: [
+
+            {
+                text: "自己是不是真的理解了",
+                type: "analysis"
+            },
+
+            {
+                text: "自己能不能馬上使用",
+                type: "action"
+            },
+
+            {
+                text: "有沒有其他人可以交流",
+                type: "social"
+            },
+
+            {
+                text: "自己有沒有按照計劃進步",
+                type: "planning"
+            }
+
+        ]
+    },
+
+
+    {
+        question:
+            "你比較喜歡哪一種課堂？",
+
+        options: [
+
+            {
+                text: "深入解釋原理的課堂",
+                type: "analysis"
+            },
+
+            {
+                text: "大量 practice 的課堂",
+                type: "action"
+            },
+
+            {
+                text: "有很多 discussion 的課堂",
+                type: "social"
+            },
+
+            {
+                text: "結構和步驟非常清楚的課堂",
+                type: "planning"
+            }
+
+        ]
+    },
+
+
+    {
+        question:
+            "完成一個學習目標後，什麼最讓你有成就感？",
+
+        options: [
+
+            {
+                text: "我終於理解它了",
+                type: "analysis"
+            },
+
+            {
+                text: "我真的把它做出來了",
+                type: "action"
+            },
+
+            {
+                text: "我和別人一起完成了",
+                type: "social"
+            },
+
+            {
+                text: "我按照計劃完成了目標",
+                type: "planning"
+            }
+
+        ]
+    }
+
+];
+
+
+
+// ==========================================
+// 2. 結果資料
+// ==========================================
+
+const results = {
+
+    analysis: {
+
+        icon: "🧠",
+
+        title: "分析探索型",
+
+        description:
+            "你傾向先理解事情背後的原理和邏輯，再開始行動。對你來說，理解「為什麼」通常很重要。",
+
+        advice:
+            "學習時可以先建立整體概念，再深入細節。不過，如果研究太久才開始實踐，也可以嘗試給自己設定一個「開始動手」的時間點。"
+
+    },
+
+
+    action: {
+
+        icon: "🚀",
+
+        title: "行動實踐型",
+
+        description:
+            "你傾向透過實際操作來學習。與其花很多時間準備，你可能更喜歡先做，再從錯誤中慢慢調整。",
+
+        advice:
+            "可以多利用 project、practice 和實際任務學習。同時，也可以在完成實踐後花一點時間整理原理。"
+
+    },
+
+
+    social: {
+
+        icon: "🤝",
+
+        title: "互動合作型",
+
+        description:
+            "你傾向透過交流、討論和合作來理解新的東西。把自己的想法說出來，可能會幫助你整理思路。",
+
+        advice:
+            "可以嘗試 study group、discussion 或找同學互相解釋。同時也可以保留一些獨立學習時間。"
+
+    },
+
+
+    planning: {
+
+        icon: "📋",
+
+        title: "結構規劃型",
+
+        description:
+            "你傾向喜歡清楚的目標、步驟和時間安排。有一個明確的結構，可能會讓你更容易保持學習節奏。",
+
+        advice:
+            "可以把大型目標拆成小任務，再設定具體 deadline。不過，計劃不需要做到完美，保留一些彈性也很重要。"
+
+    }
+
+};
+
+
+
+// ==========================================
+// 3. 變數
+// ==========================================
+
+let currentQuestion = 0;
+
+
+let scores = {
+
+    analysis: 0,
+
+    action: 0,
+
+    social: 0,
+
+    planning: 0
+
+};
+
+
+
+// ==========================================
+// 4. 首頁
+// ==========================================
+
+function showHome() {
+
+    document.getElementById("app").innerHTML = `
+
+        <div class="intro">
+
+            <div class="icon">
+                🧠
+            </div>
+
+            <h1>
+                你是哪種<br>
+                學習型人格？
+            </h1>
+
+            <p class="intro-text">
+                用 10 道問題了解你的學習傾向，
+                <br>
+                看看你更偏向哪一種學習方式。
+            </p>
+
+            <button
+                class="start-button"
+                onclick="startQuiz()"
+            >
+                開始測試
+            </button>
+
+            <p class="notice">
+                約需 2–3 分鐘 · 共 10 題
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+
+// ==========================================
+// 5. 開始測驗
+// ==========================================
+
+function startQuiz() {
+
+    currentQuestion = 0;
+
+
+    scores = {
+
+        analysis: 0,
+
+        action: 0,
+
+        social: 0,
+
+        planning: 0
+
+    };
+
+
+    showQuestion();
+
+}
+
+
+
+// ==========================================
+// 6. 顯示題目
+// ==========================================
+
+function showQuestion() {
+
+    const question =
+        questions[currentQuestion];
+
+
+    const questionNumber =
+        currentQuestion + 1;
+
+
+    const progress =
+        (questionNumber / questions.length) * 100;
+
+
+    let optionsHTML = "";
+
+
+    for (
+        let i = 0;
+        i < question.options.length;
+        i++
+    ) {
+
+        optionsHTML += `
+
+            <button
+                class="option-button"
+                onclick="answerQuestion(${i}, this)"
+            >
+                ${question.options[i].text}
+            </button>
+
+        `;
+
+    }
+
+
+    document.getElementById("app").innerHTML = `
+
+        <div class="quiz-header">
+
+            <div class="question-number">
+
+                <span>
+                    第 ${questionNumber} 題
+                </span>
+
+                <span>
+                    ${questions.length} 題
+                </span>
+
+            </div>
+
+
+            <div class="progress-background">
+
+                <div
+                    class="progress-bar"
+                    style="width: ${progress}%"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <h2 class="question-title">
+            ${question.question}
+        </h2>
+
+
+        <div class="options">
+
+            ${optionsHTML}
+
+        </div>
+
+    `;
+
+}
+
+
+
+// ==========================================
+// 7. 選答案
+// ==========================================
+
+function answerQuestion(
+    answerIndex,
+    button
+) {
+
+    button.classList.add("selected");
+
+
+    const question =
+        questions[currentQuestion];
+
+
+    const selectedOption =
+        question.options[answerIndex];
+
+
+    scores[selectedOption.type]++;
+
+
+    setTimeout(function () {
+
+        currentQuestion++;
+
+
+        if (
+            currentQuestion <
+            questions.length
+        ) {
+
+            showQuestion();
+
+        }
+
+        else {
+
+            showResult();
+
+        }
+
+    }, 250);
+
+}
+
+
+
+// ==========================================
+// 8. 找出最高分
+// ==========================================
+
+function getResultType() {
+
+    let highestScore = -1;
+
+    let resultType = "";
+
+
+    if (
+        scores.analysis >
+        highestScore
+    ) {
+
+        highestScore =
+            scores.analysis;
+
+        resultType = "analysis";
+
+    }
+
+
+    if (
+        scores.action >
+        highestScore
+    ) {
+
+        highestScore =
+            scores.action;
+
+        resultType = "action";
+
+    }
+
+
+    if (
+        scores.social >
+        highestScore
+    ) {
+
+        highestScore =
+            scores.social;
+
+        resultType = "social";
+
+    }
+
+
+    if (
+        scores.planning >
+        highestScore
+    ) {
+
+        highestScore =
+            scores.planning;
+
+        resultType = "planning";
+
+    }
+
+
+    return resultType;
+
+}
+
+
+
+// ==========================================
+// 9. 顯示結果
+// ==========================================
+
+function showResult() {
+
+    const resultType =
+        getResultType();
+
+
+    const result =
+        results[resultType];
+
+
+    const total =
+        questions.length;
+
+
+    const analysisPercent =
+        Math.round(
+            scores.analysis / total * 100
+        );
+
+
+    const actionPercent =
+        Math.round(
+            scores.action / total * 100
+        );
+
+
+    const socialPercent =
+        Math.round(
+            scores.social / total * 100
+        );
+
+
+    const planningPercent =
+        Math.round(
+            scores.planning / total * 100
+        );
+
+
+    document.getElementById("app").innerHTML = `
+
+        <div class="result">
+
+            <div class="result-icon">
+                ${result.icon}
+            </div>
+
+
+            <h1 class="result-title">
+                ${result.title}
+            </h1>
+
+
+            <p class="result-description">
+                ${result.description}
+            </p>
+
+
+            <div class="score-section">
+
+                <h3 class="score-title">
+                    你的學習傾向
+                </h3>
+
+
+                <div class="score-item">
+
+                    <div class="score-label">
+
+                        <span>
+                            🧠 分析探索
+                        </span>
+
+                        <span>
+                            ${analysisPercent}%
+                        </span>
+
+                    </div>
+
+
+                    <div class="score-background">
+
+                        <div
+                            class="score-bar"
+                            style="width: ${analysisPercent}%"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="score-item">
+
+                    <div class="score-label">
+
+                        <span>
+                            🚀 行動實踐
+                        </span>
+
+                        <span>
+                            ${actionPercent}%
+                        </span>
+
+                    </div>
+
+
+                    <div class="score-background">
+
+                        <div
+                            class="score-bar"
+                            style="width: ${actionPercent}%"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="score-item">
+
+                    <div class="score-label">
+
+                        <span>
+                            🤝 互動合作
+                        </span>
+
+                        <span>
+                            ${socialPercent}%
+                        </span>
+
+                    </div>
+
+
+                    <div class="score-background">
+
+                        <div
+                            class="score-bar"
+                            style="width: ${socialPercent}%"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="score-item">
+
+                    <div class="score-label">
+
+                        <span>
+                            📋 結構規劃
+                        </span>
+
+                        <span>
+                            ${planningPercent}%
+                        </span>
+
+                    </div>
+
+
+                    <div class="score-background">
+
+                        <div
+                            class="score-bar"
+                            style="width: ${planningPercent}%"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="advice">
+
+                <strong>
+                    💡 給你的學習建議
+                </strong>
+
+                <br><br>
+
+                ${result.advice}
+
+            </div>
+
+
+            <button
+                class="restart-button"
+                onclick="startQuiz()"
+            >
+                再測一次
+            </button>
+
+
+            <p class="small-note">
+
+                本測驗只反映你在這組題目中的回答傾向，
+                不代表正式的心理評估或心理診斷。
+
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+
+// ==========================================
+// 10. 顯示首頁
+// ==========================================
+
+showHome();
+
+
+</script>
+
+</body>
+
+</html>
